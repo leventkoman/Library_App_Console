@@ -1,0 +1,422 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DBLibraryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Dolaplar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DolapNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="OdaId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Katlar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KatNo" Type="int" />
+        </EntityType>
+        <EntityType Name="Kitaplar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KitapAdi" Type="nvarchar" MaxLength="50" />
+          <Property Name="YazarId" Type="int" Nullable="false" />
+          <Property Name="ISBN" Type="nvarchar" MaxLength="50" />
+          <Property Name="RafId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Odalar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OdaAdi" Type="nvarchar" MaxLength="50" />
+          <Property Name="KatId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Raflar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RafNo" Type="int" />
+          <Property Name="DolapId" Type="int" Nullable="false" />
+          <Property Name="isStock" Type="bit" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Yazarlar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Yazaradi" Type="nvarchar" MaxLength="50" />
+          <Property Name="Yazarsoyadi" Type="nvarchar" MaxLength="50" />
+          <Property Name="Eposta" Type="nvarchar" MaxLength="50" />
+          <Property Name="Dogumyeri" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Dolaplar_Odalar">
+          <End Role="Odalar" Type="Self.Odalar" Multiplicity="1" />
+          <End Role="Dolaplar" Type="Self.Dolaplar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Odalar">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Dolaplar">
+              <PropertyRef Name="OdaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kitaplar_Raflar">
+          <End Role="Raflar" Type="Self.Raflar" Multiplicity="1" />
+          <End Role="Kitaplar" Type="Self.Kitaplar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Raflar">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Kitaplar">
+              <PropertyRef Name="RafId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kitaplar_Yazarlar">
+          <End Role="Yazarlar" Type="Self.Yazarlar" Multiplicity="1" />
+          <End Role="Kitaplar" Type="Self.Kitaplar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Yazarlar">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Kitaplar">
+              <PropertyRef Name="YazarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Odalar_Katlar">
+          <End Role="Katlar" Type="Self.Katlar" Multiplicity="1" />
+          <End Role="Odalar" Type="Self.Odalar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Katlar">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Odalar">
+              <PropertyRef Name="KatId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Raflar_Dolaplar">
+          <End Role="Dolaplar" Type="Self.Dolaplar" Multiplicity="1" />
+          <End Role="Raflar" Type="Self.Raflar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dolaplar">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Raflar">
+              <PropertyRef Name="DolapId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBLibraryModelStoreContainer">
+          <EntitySet Name="Dolaplar" EntityType="Self.Dolaplar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Katlar" EntityType="Self.Katlar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kitaplar" EntityType="Self.Kitaplar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Odalar" EntityType="Self.Odalar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Raflar" EntityType="Self.Raflar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Yazarlar" EntityType="Self.Yazarlar" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Dolaplar_Odalar" Association="Self.FK_Dolaplar_Odalar">
+            <End Role="Odalar" EntitySet="Odalar" />
+            <End Role="Dolaplar" EntitySet="Dolaplar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kitaplar_Raflar" Association="Self.FK_Kitaplar_Raflar">
+            <End Role="Raflar" EntitySet="Raflar" />
+            <End Role="Kitaplar" EntitySet="Kitaplar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kitaplar_Yazarlar" Association="Self.FK_Kitaplar_Yazarlar">
+            <End Role="Yazarlar" EntitySet="Yazarlar" />
+            <End Role="Kitaplar" EntitySet="Kitaplar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Odalar_Katlar" Association="Self.FK_Odalar_Katlar">
+            <End Role="Katlar" EntitySet="Katlar" />
+            <End Role="Odalar" EntitySet="Odalar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Raflar_Dolaplar" Association="Self.FK_Raflar_Dolaplar">
+            <End Role="Dolaplar" EntitySet="Dolaplar" />
+            <End Role="Raflar" EntitySet="Raflar" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBLibraryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DBLibraryEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Dolaplars" EntityType="DBLibraryModel.Dolaplar" />
+          <EntitySet Name="Katlars" EntityType="DBLibraryModel.Katlar" />
+          <EntitySet Name="Kitaplars" EntityType="DBLibraryModel.Kitaplar" />
+          <EntitySet Name="Odalars" EntityType="DBLibraryModel.Odalar" />
+          <EntitySet Name="Raflars" EntityType="DBLibraryModel.Raflar" />
+          <EntitySet Name="sysdiagrams" EntityType="DBLibraryModel.sysdiagram" />
+          <EntitySet Name="Yazarlars" EntityType="DBLibraryModel.Yazarlar" />
+          <AssociationSet Name="FK_Dolaplar_Odalar" Association="DBLibraryModel.FK_Dolaplar_Odalar">
+            <End Role="Odalar" EntitySet="Odalars" />
+            <End Role="Dolaplar" EntitySet="Dolaplars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Raflar_Dolaplar" Association="DBLibraryModel.FK_Raflar_Dolaplar">
+            <End Role="Dolaplar" EntitySet="Dolaplars" />
+            <End Role="Raflar" EntitySet="Raflars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Odalar_Katlar" Association="DBLibraryModel.FK_Odalar_Katlar">
+            <End Role="Katlar" EntitySet="Katlars" />
+            <End Role="Odalar" EntitySet="Odalars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kitaplar_Raflar" Association="DBLibraryModel.FK_Kitaplar_Raflar">
+            <End Role="Raflar" EntitySet="Raflars" />
+            <End Role="Kitaplar" EntitySet="Kitaplars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kitaplar_Yazarlar" Association="DBLibraryModel.FK_Kitaplar_Yazarlar">
+            <End Role="Yazarlar" EntitySet="Yazarlars" />
+            <End Role="Kitaplar" EntitySet="Kitaplars" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Dolaplar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DolapNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OdaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Odalar" Relationship="DBLibraryModel.FK_Dolaplar_Odalar" FromRole="Dolaplar" ToRole="Odalar" />
+          <NavigationProperty Name="Raflars" Relationship="DBLibraryModel.FK_Raflar_Dolaplar" FromRole="Dolaplar" ToRole="Raflar" />
+        </EntityType>
+        <EntityType Name="Katlar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KatNo" Type="Int32" />
+          <NavigationProperty Name="Odalars" Relationship="DBLibraryModel.FK_Odalar_Katlar" FromRole="Katlar" ToRole="Odalar" />
+        </EntityType>
+        <EntityType Name="Kitaplar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KitapAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="YazarId" Type="Int32" Nullable="false" />
+          <Property Name="ISBN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RafId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Raflar" Relationship="DBLibraryModel.FK_Kitaplar_Raflar" FromRole="Kitaplar" ToRole="Raflar" />
+          <NavigationProperty Name="Yazarlar" Relationship="DBLibraryModel.FK_Kitaplar_Yazarlar" FromRole="Kitaplar" ToRole="Yazarlar" />
+        </EntityType>
+        <EntityType Name="Odalar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OdaAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="KatId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Dolaplars" Relationship="DBLibraryModel.FK_Dolaplar_Odalar" FromRole="Odalar" ToRole="Dolaplar" />
+          <NavigationProperty Name="Katlar" Relationship="DBLibraryModel.FK_Odalar_Katlar" FromRole="Odalar" ToRole="Katlar" />
+        </EntityType>
+        <EntityType Name="Raflar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RafNo" Type="Int32" />
+          <Property Name="DolapId" Type="Int32" Nullable="false" />
+          <Property Name="isStock" Type="Boolean" />
+          <NavigationProperty Name="Dolaplar" Relationship="DBLibraryModel.FK_Raflar_Dolaplar" FromRole="Raflar" ToRole="Dolaplar" />
+          <NavigationProperty Name="Kitaplars" Relationship="DBLibraryModel.FK_Kitaplar_Raflar" FromRole="Raflar" ToRole="Kitaplar" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Yazarlar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Yazaradi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Yazarsoyadi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Eposta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Dogumyeri" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Kitaplars" Relationship="DBLibraryModel.FK_Kitaplar_Yazarlar" FromRole="Yazarlar" ToRole="Kitaplar" />
+        </EntityType>
+        <Association Name="FK_Dolaplar_Odalar">
+          <End Type="DBLibraryModel.Odalar" Role="Odalar" Multiplicity="1" />
+          <End Type="DBLibraryModel.Dolaplar" Role="Dolaplar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Odalar">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Dolaplar">
+              <PropertyRef Name="OdaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Raflar_Dolaplar">
+          <End Type="DBLibraryModel.Dolaplar" Role="Dolaplar" Multiplicity="1" />
+          <End Type="DBLibraryModel.Raflar" Role="Raflar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dolaplar">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Raflar">
+              <PropertyRef Name="DolapId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Odalar_Katlar">
+          <End Type="DBLibraryModel.Katlar" Role="Katlar" Multiplicity="1" />
+          <End Type="DBLibraryModel.Odalar" Role="Odalar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Katlar">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Odalar">
+              <PropertyRef Name="KatId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kitaplar_Raflar">
+          <End Type="DBLibraryModel.Raflar" Role="Raflar" Multiplicity="1" />
+          <End Type="DBLibraryModel.Kitaplar" Role="Kitaplar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Raflar">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Kitaplar">
+              <PropertyRef Name="RafId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kitaplar_Yazarlar">
+          <End Type="DBLibraryModel.Yazarlar" Role="Yazarlar" Multiplicity="1" />
+          <End Type="DBLibraryModel.Kitaplar" Role="Kitaplar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Yazarlar">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Kitaplar">
+              <PropertyRef Name="YazarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBLibraryModelStoreContainer" CdmEntityContainer="DBLibraryEntities">
+          <EntitySetMapping Name="Dolaplars">
+            <EntityTypeMapping TypeName="DBLibraryModel.Dolaplar">
+              <MappingFragment StoreEntitySet="Dolaplar">
+                <ScalarProperty Name="OdaId" ColumnName="OdaId" />
+                <ScalarProperty Name="DolapNo" ColumnName="DolapNo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Katlars">
+            <EntityTypeMapping TypeName="DBLibraryModel.Katlar">
+              <MappingFragment StoreEntitySet="Katlar">
+                <ScalarProperty Name="KatNo" ColumnName="KatNo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kitaplars">
+            <EntityTypeMapping TypeName="DBLibraryModel.Kitaplar">
+              <MappingFragment StoreEntitySet="Kitaplar">
+                <ScalarProperty Name="RafId" ColumnName="RafId" />
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+                <ScalarProperty Name="YazarId" ColumnName="YazarId" />
+                <ScalarProperty Name="KitapAdi" ColumnName="KitapAdi" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Odalars">
+            <EntityTypeMapping TypeName="DBLibraryModel.Odalar">
+              <MappingFragment StoreEntitySet="Odalar">
+                <ScalarProperty Name="KatId" ColumnName="KatId" />
+                <ScalarProperty Name="OdaAdi" ColumnName="OdaAdi" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Raflars">
+            <EntityTypeMapping TypeName="DBLibraryModel.Raflar">
+              <MappingFragment StoreEntitySet="Raflar">
+                <ScalarProperty Name="isStock" ColumnName="isStock" />
+                <ScalarProperty Name="DolapId" ColumnName="DolapId" />
+                <ScalarProperty Name="RafNo" ColumnName="RafNo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DBLibraryModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Yazarlars">
+            <EntityTypeMapping TypeName="DBLibraryModel.Yazarlar">
+              <MappingFragment StoreEntitySet="Yazarlar">
+                <ScalarProperty Name="Dogumyeri" ColumnName="Dogumyeri" />
+                <ScalarProperty Name="Eposta" ColumnName="Eposta" />
+                <ScalarProperty Name="Yazarsoyadi" ColumnName="Yazarsoyadi" />
+                <ScalarProperty Name="Yazaradi" ColumnName="Yazaradi" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

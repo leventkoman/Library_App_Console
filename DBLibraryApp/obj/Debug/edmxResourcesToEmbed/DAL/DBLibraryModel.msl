@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DBLibraryModelStoreContainer" CdmEntityContainer="DBLibraryEntities">
+    <EntitySetMapping Name="Dolaplars">
+      <EntityTypeMapping TypeName="DBLibraryModel.Dolaplar">
+        <MappingFragment StoreEntitySet="Dolaplar">
+          <ScalarProperty Name="OdaId" ColumnName="OdaId" />
+          <ScalarProperty Name="DolapNo" ColumnName="DolapNo" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Katlars">
+      <EntityTypeMapping TypeName="DBLibraryModel.Katlar">
+        <MappingFragment StoreEntitySet="Katlar">
+          <ScalarProperty Name="KatNo" ColumnName="KatNo" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kitaplars">
+      <EntityTypeMapping TypeName="DBLibraryModel.Kitaplar">
+        <MappingFragment StoreEntitySet="Kitaplar">
+          <ScalarProperty Name="RafId" ColumnName="RafId" />
+          <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+          <ScalarProperty Name="YazarId" ColumnName="YazarId" />
+          <ScalarProperty Name="KitapAdi" ColumnName="KitapAdi" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Odalars">
+      <EntityTypeMapping TypeName="DBLibraryModel.Odalar">
+        <MappingFragment StoreEntitySet="Odalar">
+          <ScalarProperty Name="KatId" ColumnName="KatId" />
+          <ScalarProperty Name="OdaAdi" ColumnName="OdaAdi" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Raflars">
+      <EntityTypeMapping TypeName="DBLibraryModel.Raflar">
+        <MappingFragment StoreEntitySet="Raflar">
+          <ScalarProperty Name="isStock" ColumnName="isStock" />
+          <ScalarProperty Name="DolapId" ColumnName="DolapId" />
+          <ScalarProperty Name="RafNo" ColumnName="RafNo" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="DBLibraryModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Yazarlars">
+      <EntityTypeMapping TypeName="DBLibraryModel.Yazarlar">
+        <MappingFragment StoreEntitySet="Yazarlar">
+          <ScalarProperty Name="Dogumyeri" ColumnName="Dogumyeri" />
+          <ScalarProperty Name="Eposta" ColumnName="Eposta" />
+          <ScalarProperty Name="Yazarsoyadi" ColumnName="Yazarsoyadi" />
+          <ScalarProperty Name="Yazaradi" ColumnName="Yazaradi" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
